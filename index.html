@@ -1,198 +1,169 @@
-```html id="quizcoffeepro"
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Test tính cách Coffee</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cộng coffee chemistry lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-body{
-font-family:Arial;
-background:#f3e5d8;
-display:flex;
-justify-content:center;
-padding:30px;
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background:#f3f1e7;
+  margin:0;
+  color:#2f2f2f;
 }
-
-.container{
-background:white;
-width:700px;
-padding:30px;
-border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.2);
+header {
+  background:#485a28;
+  color:#fff;
+  padding:25px 15px;
+  text-align:center;
 }
-
-h1{
-text-align:center;
-color:#5d4037;
+header h1 { margin:0; font-size:24px; letter-spacing:1px; }
+.container {
+  max-width:720px;
+  margin:auto;
+  padding:20px;
 }
-
-.question{
-margin:20px 0;
+.question {
+  background:#fff;
+  padding:18px;
+  margin-bottom:20px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
 }
-
-.answers label{
-display:block;
-padding:8px;
-cursor:pointer;
-border-radius:6px;
+.question h3 { margin-top:0; }
+.answers label {
+  display:block;
+  margin:8px 0;
+  cursor:pointer;
 }
-
-.answers label:hover{
-background:#ffe0b2;
+.answers input { display:none; }
+.answers span {
+  display:block;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  transition:0.25s;
 }
-
-button{
-width:100%;
-padding:12px;
-background:#6d4c41;
-color:white;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
+.answers span:hover {
+  background:#e7ecd9;
 }
-
-.result{
-margin-top:20px;
-text-align:center;
+.answers input:checked + span {
+  background:#485a28;
+  color:#fff;
+  border-color:#485a28;
 }
-
-iframe{
-width:100%;
-height:500px;
-border:none;
+button {
+  width:100%;
+  background:#485a28;
+  color:#fff;
+  padding:14px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:10px;
+}
+button:hover { opacity:0.9; }
+#result {
+  text-align:center;
+  animation:fadeIn 0.6s ease;
+}
+img {
+  max-width:100%;
+  border-radius:12px;
+}
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);} 
+  to {opacity:1; transform:translateY(0);} 
 }
 </style>
-
 </head>
-
 <body>
 
-<div class="container">
+<header>
+<h1>CỘNG COFFEE LAB</h1>
+<p>Khám phá tính cách cà phê của bạn</p>
+</header>
 
-<h1>☕ Test tính cách Coffee</h1>
-<p>Cùng khám phá bạn là “nhà bác học cà phê” nào!</p>
-
-<form id="quiz"></form>
-
-<button onclick="submitQuiz()">Xem kết quả</button>
-
-<div class="result" id="result"></div>
-
+<div class="container" id="app">
+<form id="quizForm"></form>
+<button onclick="calculateResult()">Xem kết quả</button>
 </div>
 
 <script>
-
 const questions = [
-"1. Một buổi sáng lý tưởng của bạn là:",
-"2. Khi đi cà phê với bạn bè, bạn thường:",
-"3. Bạn chọn không gian làm việc như thế nào?",
-"4. Khi chọn đồ uống:",
-"5. Khi làm việc nhóm, bạn là người:",
-"6. Một ngày hoàn hảo với bạn là:",
-"7. Bạn thích ly cà phê của mình:",
-"8. Bạn thường được bạn bè nhận xét:",
-"9. Khi đứng trước lựa chọn khó:",
-"10. Nếu cuộc sống là một phản ứng:"
+"Một buổi sáng lý tưởng của bạn là:",
+"Khi đi cà phê với bạn bè, bạn thường:",
+"Bạn chọn không gian làm việc như thế nào?",
+"Khi chọn đồ uống:",
+"Khi làm việc nhóm, bạn là người:",
+"Một ngày hoàn hảo với bạn là:",
+"Bạn thích ly cà phê của mình:",
+"Bạn thường được bạn bè nhận xét:",
+"Khi đứng trước lựa chọn khó:",
+"Nếu cuộc sống là một phản ứng, bạn muốn nó:"
 ];
 
 const answers = [
-["Chậm rãi","Đúng giờ","Ý tưởng mới"],
-["Chia sẻ","Quan sát","Tạo trò vui"],
-["Ấm cúng","Tối giản","Sáng tạo"],
-["Dễ uống","Phù hợp","Thử mới"],
-["Kết nối","Đảm bảo","Ý tưởng"],
-["Bình yên","Hiệu quả","Thú vị"],
-["Nhẹ nhàng","Cân bằng","Mới lạ"],
+["Chậm rãi, nhẹ nhàng","Đúng giờ, có kế hoạch","Ý tưởng bất chợt"],
+["Nghe và chia sẻ","Quan sát","Tạo trò vui"],
+["Ấm cúng","Gọn gàng","Sáng tạo"],
+["Ngon là được","Phù hợp","Thử mới"],
+["Kết nối","Giữ tiến độ","Ý tưởng mới"],
+["Bình yên","Hiệu quả","Bất ngờ"],
+["Nhiều sữa","Cân bằng","Mới lạ"],
 ["Tình cảm","Đáng tin","Khác biệt"],
 ["Dễ chịu","Hợp lý","Lối riêng"],
 ["Êm ái","Ổn định","Bùng nổ"]
 ];
 
-const form = document.getElementById("quiz");
-
+const form = document.getElementById("quizForm");
 questions.forEach((q,i)=>{
-let html = `<div class="question"><p>${q}</p><div class="answers">`;
-
-["A","B","C"].forEach((letter,j)=>{
-html += `
-<label>
-<input type="radio" name="q${i}" value="${letter}">
-${letter}. ${answers[i][j]}
-</label>`;
+ let div=document.createElement("div");
+ div.classList.add("question");
+ div.innerHTML=`<h3>${i+1}. ${q}</h3>`;
+ let ans="";
+ ["A","B","C"].forEach((l,j)=>{
+ ans+=`<label><input type="radio" name="q${i}" value="${l}"><span>${l}. ${answers[i][j]}</span></label>`;
+ });
+ div.innerHTML+=`<div class="answers">${ans}</div>`;
+ form.appendChild(div);
 });
 
-html += `</div></div>`;
-form.innerHTML += html;
-});
+function calculateResult(){
+ let count={A:0,B:0,C:0};
+ for(let i=0;i<questions.length;i++){
+ let s=document.querySelector(`input[name=q${i}]:checked`);
+ if(!s){alert("Vui lòng trả lời hết câu hỏi!");return;}
+ count[s.value]++;
+ }
 
-function submitQuiz(){
+ let result="";
+ if(count.A>count.B && count.A>count.C) result="sweet";
+ else if(count.B>count.A && count.B>count.C) result="classic";
+ else if(count.C>count.A && count.C>count.B) result="creative";
+ else{
+ let q10=document.querySelector('input[name=q9]:checked').value;
+ if(q10=="A") result="sweet";
+ if(q10=="B") result="classic";
+ if(q10=="C") result="creative";
+ }
 
-let count={A:0,B:0,C:0};
-let lastAnswer=null;
+ let img="";
+ if(result==="sweet") img="sweet.jpg";
+ if(result==="classic") img="classic.jpg";
+ if(result==="creative") img="creative.jpg";
 
-for(let i=0;i<10;i++){
-let q=document.querySelector(`input[name="q${i}"]:checked`);
-
-if(!q){
-alert("Vui lòng trả lời hết 10 câu!");
-return;
+ document.getElementById("app").innerHTML = `
+   <div id="result">
+     <img src="${img}" alt="result">
+     <br><br>
+     <button onclick="location.reload()">Làm lại</button>
+   </div>
+ `;
 }
-
-count[q.value]++;
-
-if(i===9){ // câu 10
-lastAnswer=q.value;
-}
-}
-
-// tìm max
-let max = Math.max(count.A,count.B,count.C);
-
-// kiểm tra hòa
-let resultType;
-
-let arr=[];
-for(let key in count){
-if(count[key]===max){
-arr.push(key);
-}
-}
-
-if(arr.length===1){
-resultType=arr[0];
-}else{
-resultType=lastAnswer; // dùng câu 10
-}
-
-// map kết quả
-const resultMap={
-A:{
-name:"The Sweet Scientist 🍶",
-file:"KQ test tính cách 01.pdf"
-},
-B:{
-name:"The Classic Chemist ☕",
-file:"KQ test tính cách 02.pdf"
-},
-C:{
-name:"The Creative Reactor 🧪",
-file:"KQ test tính cách 03.pdf"
-}
-};
-
-let result=resultMap[resultType];
-
-document.getElementById("result").innerHTML = `
-<h2>${result.name}</h2>
-<iframe src="${result.file}"></iframe>
-`;
-
-}
-
 </script>
 
 </body>
 </html>
-```
