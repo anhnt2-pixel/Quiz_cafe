@@ -1,186 +1,82 @@
+```html id="quizcoffeepro"
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Quiz tính cách Cafe</title>
+<title>Test tính cách Coffee</title>
 
 <style>
-
 body{
 font-family:Arial;
-background:linear-gradient(135deg,#d7ccc8,#efebe9);
+background:#f3e5d8;
 display:flex;
 justify-content:center;
-padding:40px;
-overflow-x:hidden;
+padding:30px;
 }
 
 .container{
 background:white;
-width:650px;
+width:700px;
 padding:30px;
 border-radius:12px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-position:relative;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
 h1{
 text-align:center;
-color:#6d4c41;
+color:#5d4037;
 }
 
-.question img{
-width:100%;
-border-radius:8px;
-margin:10px 0;
+.question{
+margin:20px 0;
 }
 
 .answers label{
 display:block;
-padding:10px;
-margin:5px 0;
-border-radius:6px;
-background:#f5f5f5;
+padding:8px;
 cursor:pointer;
-transition:0.3s;
+border-radius:6px;
 }
 
 .answers label:hover{
 background:#ffe0b2;
-transform:scale(1.03);
 }
 
 button{
 width:100%;
 padding:12px;
-border:none;
-border-radius:6px;
 background:#6d4c41;
 color:white;
+border:none;
+border-radius:6px;
 font-size:16px;
 cursor:pointer;
-margin-top:10px;
-}
-
-button:hover{
-background:#5d4037;
 }
 
 .result{
 margin-top:20px;
-font-size:18px;
 text-align:center;
-font-weight:bold;
-color:#4e342e;
 }
 
-.progress{
-height:10px;
-background:#ddd;
-border-radius:10px;
-margin-bottom:20px;
-overflow:hidden;
+iframe{
+width:100%;
+height:500px;
+border:none;
 }
-
-.bar{
-height:100%;
-width:0%;
-background:#6d4c41;
-transition:0.3s;
-}
-
-/* animation cafe */
-
-.coffee{
-position:fixed;
-font-size:30px;
-opacity:0.2;
-animation:float 10s linear infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(100vh)}
-100%{transform:translateY(-100px)}
-}
-
 </style>
 
 </head>
 
 <body>
 
-<div class="coffee" style="left:10%">☕</div>
-<div class="coffee" style="left:40%;animation-duration:12s">☕</div>
-<div class="coffee" style="left:70%;animation-duration:15s">☕</div>
-
 <div class="container">
 
-<h1>Quiz tính cách Cafe ☕</h1>
+<h1>☕ Test tính cách Coffee</h1>
+<p>Cùng khám phá bạn là “nhà bác học cà phê” nào!</p>
 
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
+<form id="quiz"></form>
 
-<form id="quiz">
-
-<div class="question">
-<p>1. Bạn thích làm gì khi vào quán cafe?</p>
-<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93">
-<div class="answers">
-<label><input type="radio" name="q1" value="A"> Nói chuyện với bạn bè</label>
-<label><input type="radio" name="q1" value="B"> Ngồi thư giãn</label>
-<label><input type="radio" name="q1" value="C"> Vẽ hoặc viết</label>
-<label><input type="radio" name="q1" value="D"> Làm việc laptop</label>
-</div>
-</div>
-
-<div class="question">
-<p>2. Bạn chọn đồ uống nào?</p>
-<img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085">
-<div class="answers">
-<label><input type="radio" name="q2" value="A"> Latte</label>
-<label><input type="radio" name="q2" value="B"> Cappuccino</label>
-<label><input type="radio" name="q2" value="C"> Mocha</label>
-<label><input type="radio" name="q2" value="D"> Espresso</label>
-</div>
-</div>
-
-<div class="question">
-<p>3. Bạn thích không gian nào?</p>
-<img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31">
-<div class="answers">
-<label><input type="radio" name="q3" value="A"> Đông vui</label>
-<label><input type="radio" name="q3" value="B"> Yên tĩnh</label>
-<label><input type="radio" name="q3" value="C"> Nghệ thuật</label>
-<label><input type="radio" name="q3" value="D"> Hiện đại</label>
-</div>
-</div>
-
-<div class="question">
-<p>4. Bạn thường đi cafe khi?</p>
-<img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247">
-<div class="answers">
-<label><input type="radio" name="q4" value="A"> Cuối tuần</label>
-<label><input type="radio" name="q4" value="B"> Sau giờ làm</label>
-<label><input type="radio" name="q4" value="C"> Khi cần cảm hứng</label>
-<label><input type="radio" name="q4" value="D"> Khi cần tập trung</label>
-</div>
-</div>
-
-<div class="question">
-<p>5. Góc cafe bạn thích?</p>
-<img src="https://images.unsplash.com/photo-1461988625982-7e46a099bf4f">
-<div class="answers">
-<label><input type="radio" name="q5" value="A"> Bàn lớn</label>
-<label><input type="radio" name="q5" value="B"> Ghế sofa</label>
-<label><input type="radio" name="q5" value="C"> Góc nghệ thuật</label>
-<label><input type="radio" name="q5" value="D"> Bàn làm việc</label>
-</div>
-</div>
-
-<button type="button" onclick="showResult()">Xem kết quả</button>
-
-</form>
+<button onclick="submitQuiz()">Xem kết quả</button>
 
 <div class="result" id="result"></div>
 
@@ -188,60 +84,110 @@ animation:float 10s linear infinite;
 
 <script>
 
-function showResult(){
+const questions = [
+"1. Một buổi sáng lý tưởng của bạn là:",
+"2. Khi đi cà phê với bạn bè, bạn thường:",
+"3. Bạn chọn không gian làm việc như thế nào?",
+"4. Khi chọn đồ uống:",
+"5. Khi làm việc nhóm, bạn là người:",
+"6. Một ngày hoàn hảo với bạn là:",
+"7. Bạn thích ly cà phê của mình:",
+"8. Bạn thường được bạn bè nhận xét:",
+"9. Khi đứng trước lựa chọn khó:",
+"10. Nếu cuộc sống là một phản ứng:"
+];
 
-let count={A:0,B:0,C:0,D:0}
+const answers = [
+["Chậm rãi","Đúng giờ","Ý tưởng mới"],
+["Chia sẻ","Quan sát","Tạo trò vui"],
+["Ấm cúng","Tối giản","Sáng tạo"],
+["Dễ uống","Phù hợp","Thử mới"],
+["Kết nối","Đảm bảo","Ý tưởng"],
+["Bình yên","Hiệu quả","Thú vị"],
+["Nhẹ nhàng","Cân bằng","Mới lạ"],
+["Tình cảm","Đáng tin","Khác biệt"],
+["Dễ chịu","Hợp lý","Lối riêng"],
+["Êm ái","Ổn định","Bùng nổ"]
+];
 
-for(let i=1;i<=5;i++){
+const form = document.getElementById("quiz");
 
-let q=document.querySelector('input[name="q'+i+'"]:checked')
+questions.forEach((q,i)=>{
+let html = `<div class="question"><p>${q}</p><div class="answers">`;
+
+["A","B","C"].forEach((letter,j)=>{
+html += `
+<label>
+<input type="radio" name="q${i}" value="${letter}">
+${letter}. ${answers[i][j]}
+</label>`;
+});
+
+html += `</div></div>`;
+form.innerHTML += html;
+});
+
+function submitQuiz(){
+
+let count={A:0,B:0,C:0};
+let lastAnswer=null;
+
+for(let i=0;i<10;i++){
+let q=document.querySelector(`input[name="q${i}"]:checked`);
 
 if(!q){
-alert("Vui lòng trả lời hết câu hỏi")
-return
+alert("Vui lòng trả lời hết 10 câu!");
+return;
 }
 
-count[q.value]++
-}
+count[q.value]++;
 
-let max="A"
-
-for(let k in count){
-if(count[k]>count[max]){
-max=k
+if(i===9){ // câu 10
+lastAnswer=q.value;
 }
 }
 
-const personality={
-A:"Bạn là người hướng ngoại – thích trò chuyện và kết nối ☕",
-B:"Bạn là người thư giãn – thích tận hưởng không gian cafe ☕",
-C:"Bạn là người sáng tạo – cafe giúp bạn có cảm hứng ☕",
-D:"Bạn là người tập trung – cafe là nơi làm việc lý tưởng ☕"
-}
+// tìm max
+let max = Math.max(count.A,count.B,count.C);
 
-document.getElementById("result").innerText=
-"Tính cách cafe của bạn: "+personality[max]
+// kiểm tra hòa
+let resultType;
 
-}
-
-const inputs=document.querySelectorAll("input")
-
-inputs.forEach(i=>{
-i.addEventListener("change",updateBar)
-})
-
-function updateBar(){
-
-let answered=0
-
-for(let i=1;i<=5;i++){
-if(document.querySelector('input[name="q'+i+'"]:checked')){
-answered++
+let arr=[];
+for(let key in count){
+if(count[key]===max){
+arr.push(key);
 }
 }
 
-let percent=(answered/5)*100
-document.getElementById("bar").style.width=percent+"%"
+if(arr.length===1){
+resultType=arr[0];
+}else{
+resultType=lastAnswer; // dùng câu 10
+}
+
+// map kết quả
+const resultMap={
+A:{
+name:"The Sweet Scientist 🍶",
+file:"KQ1.pdf"
+},
+B:{
+name:"The Classic Chemist ☕",
+file:"KQ2.pdf"
+},
+C:{
+name:"The Creative Reactor 🧪",
+file:"KQ3.pdf"
+}
+};
+
+let result=resultMap[resultType];
+
+document.getElementById("result").innerHTML = `
+<h2>${result.name}</h2>
+<iframe src="${result.file}"></iframe>
+`;
 
 }
 
@@ -249,3 +195,4 @@ document.getElementById("bar").style.width=percent+"%"
 
 </body>
 </html>
+```
